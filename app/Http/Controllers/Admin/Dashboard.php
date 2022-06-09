@@ -16,7 +16,7 @@ class Dashboard extends Controller
             'article_count' => ArticleModel::whereStatus(1)->count(),
             'views' => ArticleModel::sum('hit'),
             'category_count' => CategoryModel::whereStatus(1)->count(),
-            'contact_count' => ContactModel::whereStatus(1)->count()
+            'contact_count' => ContactModel::whereStatus(1)->count(),
         ];
         return view('admin.dashboard', $data);
     }
