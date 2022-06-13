@@ -9,6 +9,7 @@ use App\Models\CategoryModel as CM;
 use App\Models\ArticleModel as ARM;
 use App\Models\PageModel as PM;
 use App\Models\ContactModel as COM;
+use App\Models\CommentModel;
 use Illuminate\Support\Facades\Mail;
 use App\Models\ConfigModel as CONFIG;
 
@@ -37,8 +38,10 @@ class HomeController extends Controller
     {
         $category = CM::whereStatus(1)->whereSlug($category)->first() ?? abort(403, 'Böyle bir kategori bulunamadı.');
         $article = ARM::whereStatus(1)->whereSlug($slug)->whereCategoryId($category->id)->first() ?? abort(403, 'Böyle bir makale bulunamadı.');
+        $comments = CommentModel::where('article_id', $article->id)->whereStatus(1)->orderBy('created_at', 'DESC')->get();
         $data = [
             'article' => $article ?? abort(403, 'Böyle bir yazı bulunamadı.'),
+            'comments' => $comments,
         ];
         $article->increment('hit');
         return view('front.single', $data);
@@ -92,4 +95,18 @@ class HomeController extends Controller
         });*/
         return redirect()->route('contact')->with('success', 'Mesajınız bize iletildi. Teşekkür ederiz.');
     }
+
+    public function storeComment(Request $request)
+    {
+        if (ARM::find($request->article_id)) {
+            $comment = new CommentModel;
+            $comment->fullname = $request->fullname;
+            $comment->content = $request->content;
+            $comment->article_id = $request->article_id;
+            $comment->save();
+            return 'success';
+        }
+        return 'error';
+    }
+
 }

@@ -35,14 +35,14 @@
                         </li>
                     @endif
                     @if($config->instagram)
-                            <li class="list-inline-item">
-                                <a href="{{$config->youtube}}">
+                        <li class="list-inline-item">
+                            <a href="{{$config->youtube}}">
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
                                         <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
                                     </span>
-                                </a>
-                            </li>
+                            </a>
+                        </li>
                     @endif
                     @if($config->github)
                         <li class="list-inline-item">
@@ -55,14 +55,14 @@
                         </li>
                     @endif
                     @if($config->linkedin)
-                            <li class="list-inline-item">
-                                <a href="{{$config->youtube}}">
+                        <li class="list-inline-item">
+                            <a href="{{$config->youtube}}">
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
                                         <i class="fab fa-linkedin-in fa-stack-1x fa-inverse"></i>
                                     </span>
-                                </a>
-                            </li>
+                            </a>
+                        </li>
                     @endif
                 </ul>
                 <div class="small text-center text-muted fst-italic">Copyright
@@ -75,3 +75,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="{{asset('front')}}/js/scripts.js"></script>
+@toastr_js
+@toastr_render
+@yield('scripts')

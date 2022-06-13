@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ConfigController;
 
 
@@ -16,7 +17,7 @@ use App\Http\Controllers\Admin\ConfigController;
 | Special Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/maintenance', function (){
+Route::get('/maintenance', function () {
     return view('maintenance');
 });
 
@@ -65,6 +66,14 @@ Route::prefix('adm')->name('admin.')->group(function () {
             Route::get('/orders', [PageController::class, 'sort'])->name('orders');
         });
 
+        Route::prefix('comments')->name('comment.')->group(function () {
+            Route::get('/', [CommentController::class, 'index'])->name('index');
+            Route::get('/get-data', [CommentController::class, 'getData'])->name('getData');
+            Route::get('/{id}/delete', [CommentController::class, 'delete'])->name('delete');
+            Route::post('/update', [CommentController::class, 'update'])->name('update');
+            Route::get('/switch', [CommentController::class, 'activation'])->name('switch');
+        });
+
         Route::prefix('configs')->name('config.')->group(function () {
             Route::get('/', [ConfigController::class, 'index'])->name('index');
             Route::post('/update', [ConfigController::class, 'update'])->name('update');
@@ -86,3 +95,6 @@ Route::post('/iletisim', [HomeController::class, 'contactPost'])->name('contact.
 
 Route::get('/{category}/{slug}', [HomeController::class, 'single'])->name('single');
 Route::get('/{page}', [HomeController::class, 'page'])->name('page');
+
+Route::post('/comment/store', [HomeController::class, 'storeComment'])->name('comment.store');
+Route::get('/comment/get', [HomeController::class, 'getComments'])->name('comment.getData');

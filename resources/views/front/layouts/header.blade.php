@@ -3,7 +3,7 @@
 <meta name="description" content=""/>
 <meta name="author" content=""/>
 <title>@yield('title', $config->title)</title>
-<link rel="icon" type="image/x-icon" href="{{$config->favicon}}"/>
+<link rel="icon" type="image/x-icon" href="{{asset($config->favicon)}}"/>
 <!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <!-- Google fonts-->
@@ -13,3 +13,6 @@
     rel="stylesheet" type="text/css"/>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="{{asset('front')}}/css/styles.css" rel="stylesheet"/>
+@toastr_css
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
